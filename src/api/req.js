@@ -16,3 +16,4 @@ export function testMock() {
   const useRoot = false
   return get(url, useRoot)
 }
+export default {}
