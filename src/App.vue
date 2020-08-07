@@ -24,6 +24,7 @@ export default {
 </script>
 
 <style>
+@import 'assets/style/reset.css';
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
