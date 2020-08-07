@@ -6,7 +6,7 @@
 </template>
 <script type="text/javascript">
 import HelloWorld from '@/components/HelloWorld.vue'
-
+import { userInfo } from '@/api/user.js'
 export default {
   props: {},
   components: {
@@ -20,7 +20,11 @@ export default {
   watch: {
     
   },
-  mounted() {},
+  mounted() {
+    userInfo().then((res)=> {
+      console.log(res.data.data)
+    })
+  },
   methods: {
 
   }

@@ -7,7 +7,7 @@ import Layout from "@/layout";
 const routers = [
   {
     path: "/login",
-    component: () => import("@/pages/login/index.vue"),
+    component: () => import("@/views/login/index.vue"),
   },
   {
     path: "/home",
@@ -15,7 +15,7 @@ const routers = [
     children: [
       {
         path: "",
-        component: () => import("@/pages/home/index"),
+        component: () => import("@/views/home/index"),
         name: "home",
         meta: { 
           title: "首页", 

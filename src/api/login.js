@@ -1,6 +1,6 @@
 import { get } from './base.js'
-export function userInfo() {
-  const url = '/api/user_info'
+export function login() {
+  const url = '/api/login'
   const useRoot = false
   return get(url, useRoot)
 }

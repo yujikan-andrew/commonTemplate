@@ -7,6 +7,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { userInfo, testMock, testInCache } from '@/api/req.js'
+import { login } from '@/api/login.js'
 import hello from '@/components/HelloWorld.vue'
 export default {
   components: { hello },
@@ -36,6 +37,9 @@ export default {
 
     testInCache().then((res)=> {
       console.log(res.data.msg)
+    })
+    login().then((res)=> {
+      console.log(res.data.data)
     })
   }
 }
