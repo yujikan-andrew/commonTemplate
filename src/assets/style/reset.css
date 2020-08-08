@@ -48,3 +48,36 @@ button,
 button:active {
   outline: none;
 }
+
+.clear { 
+  zoom: 1;
+}
+.clear:after { 
+  content: ''; 
+  display: block; 
+  clear: both;
+}
+.no-select, .select-search .status-option {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.fl { 
+  float: left;
+}
+.fr { 
+  float: right;
+}
+.pr {
+  position: relative;
+}
+.ps {
+  position: absolute;
+}
+.pf {
+  position: fixed;
+}
+.df {
+  display: flex;
+}
