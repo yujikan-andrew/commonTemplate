@@ -1,9 +1,9 @@
 <template>
-  <section class="app-main">
+  <div class="apps-wrap pr">
     <keep-alive>
       <router-view :key="key" />
     </keep-alive>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -18,14 +18,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.app-main {
-  min-height: calc(100vh - 60px);
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  z-index: 99;
-  font-size: 14px;  // for solve the rem bug
+.apps-wrap {
+  top: @headHeight;
+  left: @menuWidth;
+  height: calc(100vh - @headHeight);
+  width: calc(100vw - @menuWidth);
+  z-index: @zidxBottom;
+  overflow-y: auto;
 }
-
 </style>
 

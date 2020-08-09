@@ -26,9 +26,6 @@ export default {
 <style>
 @import 'assets/style/reset.css';
 #app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 </style>

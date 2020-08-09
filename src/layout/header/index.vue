@@ -1,5 +1,5 @@
 <template>
-  <div class="main-wrap">
+  <div class="head-wrap pf">
     我是头部
   </div>
 </template>
@@ -14,4 +14,11 @@ export default {
 <style 
   lang="less" scoped>
   
+.head-wrap {
+  .height(@headHeight);
+  width: 100%;
+  background: @hoverBg;
+  z-index: @zidxFrame;
+  .boxshadow();
+}
 </style>

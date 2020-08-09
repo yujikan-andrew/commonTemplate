@@ -11,8 +11,15 @@
 
 /* 整体布局配置 */ 
 @headHeight: 50px;
-@menuWidth: 200px;
+@menuWidth: 180px;
 
+@lineHeight: 38px;;
+
+/* 整体z-index布局配置 结构层 topest */ 
+@zidxFrame: 999;
+@zidxTop: 100;
+@zidxMiddle: 50;
+@zidxBottom: 0;
 
 /* 颜色配置 */ 
 @normal: #333;
@@ -57,10 +64,11 @@
 .p-title {
   font-size: @fontMedium;
   text-align: left;
+  font-weight: bold;
 }
 .p-line-warp {
   display: flex;
-  .height(38px);
+  line-height: @lineHeight;
   text-align: left;
 
   .p-label, .p-content {
@@ -71,6 +79,14 @@
 
   .p-label {
     width: 100px;
+    flex-shrink: 0;
+  }
+  .p-content {
+    height: auto;
+    word-wrap: break-word;  
+    word-break: normal;
   }
 }
-  
+.font-gray {
+  color: @gray;
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <hello :msg="msg"></hello>
+    <div class="warp-margin warp-padding">{{msg}}</div>
   </div>
 </template>
 
@@ -8,12 +8,10 @@
 import { mapGetters } from 'vuex'
 import { userInfo, testMock, testInCache } from '@/api/req.js'
 import { login } from '@/api/login.js'
-import hello from '@/components/HelloWorld.vue'
 export default {
-  components: { hello },
   data() {
     return {
-      msg: ''
+      msg: '请求中……'
     }
   },
   computed: {
@@ -23,7 +21,7 @@ export default {
     ])
   },
   mounted() {
-    console.log(this.screenWidth, this.screenHeight)
+    console.log('screenWidth:',this.screenWidth, 'screenHeight:', this.screenHeight)
     userInfo().then((res)=> {
       if (res.status === 200 && res.data.success) {
         this.msg = res.data.msg
@@ -45,7 +43,9 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="less" scoped>
 
+.hello {
+  width: 100%;
+}
 </style>

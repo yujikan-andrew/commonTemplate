@@ -1,8 +1,7 @@
 <template>
-  <div class="app-main">
+  <div class="layout pr">
     <head-section></head-section>
     <menus></menus>
-    我是布局
     <app-main></app-main>
   </div>
 </template>
@@ -12,26 +11,10 @@ import menus from './menus/index.vue'
 import appMain from './apps/index.vue'
 
 export default {
-  props: {},
   components: {
     headSection,
     menus,
     appMain
-  },
-  data() {
-    return {
-    }
-  },
-  filters: {},
-  watch: {
-  },
-  mounted() {},
-  methods: {
-
   }
 }
 </script>
-<style 
-  lang="less" scoped>
-  
-</style>

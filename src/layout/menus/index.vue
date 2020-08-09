@@ -1,5 +1,5 @@
 <template>
-  <div class="main-wrap">
+  <div class="menus-wrap pf">
     我是menus
   </div>
 </template>
@@ -22,5 +22,13 @@ export default {
 </script>
 <style 
   lang="less" scoped>
-  
+
+.menus-wrap {
+  width: @menuWidth;
+  height: calc(100% - @headHeight);
+  top: @headHeight;
+  background: @selectBg;
+  z-index: @zidxFrame;
+  .boxshadow();
+}
 </style>
