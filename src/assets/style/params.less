@@ -1,21 +1,31 @@
 // 启动项目前做好范式
 
+/* 字体 */ 
+
+@fontSmall: 12px;
+@fontNormal: 14px;
+@fontMedium: 16px;
+@fontBig: 18px;
+@fontSuper: 20px;
+
+
 /* 整体布局配置 */ 
 @headHeight: 50px;
 @menuWidth: 200px;
 
 
 /* 颜色配置 */ 
+@normal: #333;
+@red: #F56C6C;
 @green: #67C23A;
 @blue: #409EFF;
 @yellow: #E6A23C;
-@red: #F56C6C;
-@gray: #ececec;
+@gray: #b5b5b5;
 @subFont: #a5a1a5;
 
 @hover: #ecf5ff;
 @hoverBg: #ecf5ff;
-@select: #409EFF;
+@selectBg: #409EFF;
 
 /* 通用方法 */ 
 
@@ -26,6 +36,9 @@
 
 .boxshadow() {
   box-shadow: 0 2px 4px rgba(0,0,0,.4);
+}
+.borderRadius() {
+  border-radius: 2px;
 }
 // box-shadow
 // border-radius
@@ -40,13 +53,24 @@
   padding: 6px 12px;
 }
 
-/* 通用段落内容 */ 
-.title {
-
+/* 通用段落布局 */ 
+.p-title {
+  font-size: @fontMedium;
+  text-align: left;
 }
-.p-label {
+.p-line-warp {
+  display: flex;
+  .height(38px);
+  text-align: left;
 
-}
-.p-content {
+  .p-label, .p-content {
+    font-size: @fontNormal;
+    display: inline-block;
+    vertical-align: middle;
+  }
 
+  .p-label {
+    width: 100px;
+  }
 }
+  
