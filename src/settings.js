@@ -1,3 +1,4 @@
 module.exports = {
-  title: "模版"
+  // project title 
+  title: "通用模版"
 }

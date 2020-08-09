@@ -48,7 +48,7 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    before: require('./mock/mock-server.js'),
     // proxy: {
     //   '/dev-api/': {
     //     target: 'http://152.136.181.72:50500/massesvoice/',
@@ -74,7 +74,6 @@ module.exports = {
     // it can improve the speed of the first screen, it is recommended to turn on preload
     config.plugin('preload').tap(() => [
       {
-        title: name,
         rel: 'preload',
         // to ignore runtime.js
         // https://github.com/vuejs/vue-cli/blob/dev/packages/@vue/cli-service/lib/config/app.js#L171

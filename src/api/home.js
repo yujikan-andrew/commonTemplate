@@ -1,6 +1,7 @@
 import { get } from './base.js'
-export function userInfo() {
-  const url = '/api/user_info'
+// test mock
+export function mock_login() {
+  const url = '/api/login'
   const useRoot = false
   return get(url, useRoot)
 }

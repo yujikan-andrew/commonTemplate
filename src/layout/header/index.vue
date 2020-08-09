@@ -1,13 +1,16 @@
 <template>
   <div class="head-wrap pf">
     我是头部
+    <button @click="logout">登出</button>
   </div>
 </template>
 <script type="text/javascript">
 export default {
   props: {},
   methods: {
-
+    logout() {
+      this.$store.dispatch("logout")
+    }
   }
 }
 </script>

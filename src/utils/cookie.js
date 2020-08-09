@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-const TOKEN = 'Admin-Token-Masses-Voice'
+const TOKEN = 'Token-CT'
 
 export function getToken() {
   return Cookies.get(TOKEN)

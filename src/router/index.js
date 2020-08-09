@@ -8,6 +8,7 @@ const routers = [
   {
     path: "/login",
     component: () => import("@/views/login/index.vue"),
+    hidden: true
   },
   {
     path: "/home",
@@ -20,7 +21,21 @@ const routers = [
         meta: { 
           title: "首页", 
           icon: "gongzuotai",
-          roles: ['BASE', 'WQB', 'BUSI'] 
+        },
+      },
+    ],
+  },
+  {
+    path: "/index",
+    component: Layout,
+    children: [
+      {
+        path: "",
+        component: () => import("@/views/index/index"),
+        name: "index",
+        meta: { 
+          title: "功能页", 
+          icon: "gongzuotai",
         },
       },
     ],

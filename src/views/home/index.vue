@@ -1,62 +1,7 @@
 <template>
   <div class="warp-margin warp-padding">
-    <p class="p-title">标题</p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容</span>
-    </p>
+    <HelloWorld :msg="username"></HelloWorld>
+    <p class="p-title">我是{{username}}</p>
     <p class="p-line-warp">
       <span class="p-label">这是前面：</span>
       <span class="p-content">这是后面内容这是</span>
@@ -66,11 +11,9 @@
       <span class="p-content">这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容</span>
     </p>
   </div>
-    
 </template>
 <script type="text/javascript">
 import HelloWorld from '@/components/HelloWorld.vue'
-import { userInfo } from '@/api/user.js'
 export default {
   props: {},
   components: {
@@ -78,6 +21,7 @@ export default {
   },
   data() {
     return {
+      username: '好用的模版'
     }
   },
   filters: {},
@@ -85,9 +29,6 @@ export default {
     
   },
   mounted() {
-    userInfo().then((res)=> {
-      console.log(res.data.data)
-    })
   },
   methods: {
 

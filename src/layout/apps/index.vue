@@ -1,8 +1,9 @@
 <template>
   <div class="apps-wrap pr">
-    <keep-alive>
+    <!-- keep-alive hot load performance not good -->
+    <!-- <keep-alive> -->
       <router-view :key="key" />
-    </keep-alive>
+    <!-- </keep-alive> -->
   </div>
 </template>
 

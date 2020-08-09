@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import actions from './actions.js'
 import getters from './getters'
 import mutations from './mutations'
 
 Vue.use(Vuex)
 
 const state = {
-  userInfo: {
-    login: false,
+  user: {
     id: '',
     roles: [],
     username: ''
@@ -18,6 +18,7 @@ const state = {
 }
 
 const store = new Vuex.Store({
+  actions,
   state,
   getters,
   mutations

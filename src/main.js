@@ -3,6 +3,7 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import './permission.js'
+import './icons' // icon
 
 Vue.config.productionTip = false
 

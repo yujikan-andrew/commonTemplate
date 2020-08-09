@@ -1,14 +1,15 @@
 import router from './router'
 import store from './store'
 import { getToken } from '@/utils/cookie' // get token from cookie
-import req from '@/api/req.js'
+import { userInfo } from '@/api/login.js'
+import { setPageTitle } from '@/utils/set_title'
 
 
-const whiteList = ['/login', '/home'] // no redirect whitelist
+const whiteList = ['/login'] // no redirect whitelist
 
 router.beforeEach(async(to, from, next) => {
   // set page title
-  document.title = to.meta.title
+  setPageTitle(to.meta.title)
 
   // determine whether the user has logged in
   const hasToken = getToken()
@@ -18,34 +19,25 @@ router.beforeEach(async(to, from, next) => {
       next({ path: '/home' })
 
     } else {
-      // determine whether the user has obtained his permission roles through getInfo
-      const hasRoles = store.getters.roles && store.getters.roles.length > 0
-      if (hasRoles) {
-        next()
+      // check privalige
+      userInfo().then((res)=> {
+        if (res) {
+          store.commit('SET_USER', res)
+          next()
 
-      } else {
-        try {
-          req.userInfo().then((res) => {
-            if (res.status === 200 && res.data.success) {
-              
-              next()
-            } else {
-              store.commit('LOGOUT')
-            }
-          })
-        } catch (error) {
-          // remove token and go to login page to re-login
-          store.commit('LOGOUT')
-          next(`/login?redirect=${to.path}`)
+        } else {
+          store.commit("LOGOUT")
+          next(`/login`)
         }
-      }
+      })
+      
     }
-  } else {
-    /* no token*/
+  } else {  // no token
 
     if (whiteList.indexOf(to.path) !== -1) {
       next()
     } else {
+      store.commit("LOGOUT")
       next(`/login?redirect=${to.path}`)
     }
   }

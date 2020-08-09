@@ -1,17 +1,33 @@
 <template>
-  <div class="hello">
-    <div class="warp-margin warp-padding">{{msg}}</div>
+  <div class="login-warp">
+    <div class="warp-margin warp-padding">
+      <p class="p-title">用户登录</p>
+
+      <p class="p-line-warp">
+        <span class="p-label">用户名：</span>
+        <input class="p-content" type="text" name="account" v-model="username" />
+      </p>
+      <p class="p-line-warp">
+        <span class="p-label">密  码：</span>
+        <input class="p-content" type="password" name="account" v-model="password" />
+      </p>
+      <p class="p-line-warp">
+        <button class="p-label" @click="onclickLogin">登录</button>
+        <button class="p-label" @click="onclickLogOut">登出</button>
+      </p>
+        
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { userInfo, testMock, testInCache } from '@/api/req.js'
-import { login } from '@/api/login.js'
 export default {
   data() {
     return {
-      msg: '请求中……'
+      msg: '请求中……',
+      password: '',
+      username: ''
     }
   },
   computed: {
@@ -21,31 +37,29 @@ export default {
     ])
   },
   mounted() {
-    console.log('screenWidth:',this.screenWidth, 'screenHeight:', this.screenHeight)
-    userInfo().then((res)=> {
-      if (res.status === 200 && res.data.success) {
-        this.msg = res.data.msg
-      } else {
-        this.msg = res.data.msg
-      }
-    })
-    testMock().then((res)=> {
-      console.log(res.data.data)
-    })
 
-    testInCache().then((res)=> {
-      console.log(res.data.msg)
-    })
-    login().then((res)=> {
-      console.log(res.data.data)
-    })
+  },
+  methods: {
+    async onclickLogin() {
+      this.$store.dispatch('login', {username: this.username, password: this.password})
+    },
+    async onclickLogOut() {
+      await this.$store.dispatch('logout')
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
-
-.hello {
-  width: 100%;
+.login-warp {
+  .warp-margin {
+    input {
+      display: block;
+      .height(32px);
+      outline: 1px solid @gray;
+      .borderRadius();
+    }
+  }
 }
+  
 </style>

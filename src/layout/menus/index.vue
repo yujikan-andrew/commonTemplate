@@ -1,22 +1,31 @@
 <template>
   <div class="menus-wrap pf">
-    我是menus
+    <sidebar class="sidebar-container" />
   </div>
 </template>
 <script type="text/javascript">
+import router from '@/router'
+import sidebar from './sidebar/index.vue'
 export default {
   props: {},
-  components: {},
+  components: {
+    sidebar
+  },
   data() {
     return {
+      routes: []
     }
   },
   filters: {},
   watch: {
   },
-  mounted() {},
+  mounted() {
+    this.routes = router.options.routes
+    console.log(this.routes)
+  },
   methods: {
-
+    handleOpen() {},
+    handleClose() {}
   }
 }
 </script>
@@ -27,7 +36,6 @@ export default {
   width: @menuWidth;
   height: calc(100% - @headHeight);
   top: @headHeight;
-  background: @selectBg;
   z-index: @zidxFrame;
   .boxshadow();
 }
