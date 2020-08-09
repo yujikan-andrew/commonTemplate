@@ -1,6 +1,6 @@
 <template>
   <div class="apps-wrap pr">
-    <!-- keep-alive hot load performance not good -->
+    <!-- keep-alive hot load performance not good, please open it when you build  -->
     <!-- <keep-alive> -->
       <router-view :key="key" />
     <!-- </keep-alive> -->

@@ -35,7 +35,7 @@ const routers = [
         name: "index",
         meta: { 
           title: "功能页", 
-          icon: "gongzuotai",
+          icon: "juese",
         },
       },
     ],
