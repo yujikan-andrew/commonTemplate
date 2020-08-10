@@ -1,6 +1,6 @@
 <template>
   <div class="menus-wrap pf">
-    <sidebar class="sidebar-container" />
+    <sidebar />
   </div>
 </template>
 <script type="text/javascript">

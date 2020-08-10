@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!item.hidden">
+  <div v-if="!item.hidden" class="menu-item">
     <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
         <span :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
@@ -80,5 +80,10 @@ export default {
 <style lang="less" >
   .warp-padding .router-link-active {
     color: @blue;
+  }
+  .menu-item {
+    width: 100%;
+    .height(42px);
+    font-size: 16px;
   }
 </style>
