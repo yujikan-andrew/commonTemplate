@@ -1,5 +1,5 @@
 <template>
-  <div class="warp-padding">
+  <div>
     <sidebar-item v-for="route in routes" 
       :key="route.path" 
       :item="route" 

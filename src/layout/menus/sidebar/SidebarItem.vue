@@ -77,13 +77,24 @@ export default {
   }
 }
 </script>
-<style lang="less" >
-  .warp-padding .router-link-active {
-    color: @blue;
-  }
+<style lang="less">
+    
   .menu-item {
     width: 100%;
     .height(42px);
     font-size: 16px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    &:hover {
+      background: @hoverBg;
+    }
+
+    .router-link-active {
+      color: @blue;
+    }
+    a {
+      display: inline-block;
+      width: 100%;
+    }
   }
 </style>
