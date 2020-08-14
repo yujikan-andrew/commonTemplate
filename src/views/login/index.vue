@@ -12,8 +12,8 @@
         <input class="p-content" type="password" name="account" v-model="password" />
       </p>
       <p class="p-line-warp">
-        <button class="p-label" @click="onclickLogin">登录</button>
-        <button class="p-label" @click="onclickLogOut">登出</button>
+        <el-button class="p-label" @click="onclickLogin">登录</el-button>
+        <el-button class="p-label" @click="onclickLogOut">登出</el-button>
       </p>
         
     </div>

@@ -5,6 +5,10 @@ import router from './router'
 import './permission.js'
 import './icons' // icon
 
+import 'element-ui/lib/theme-chalk/index.css'
+import element from './element_ui'
+Vue.use(element)
+
 Vue.config.productionTip = false
 
 new Vue({
