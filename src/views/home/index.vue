@@ -1,19 +1,16 @@
 <template>
   <div class="warp-margin warp-padding">
     <HelloWorld :msg="username"></HelloWorld>
-    <p class="p-title">我是{{username}}</p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是</span>
-    </p>
-    <p class="p-line-warp">
-      <span class="p-label">这是前面：</span>
-      <span class="p-content">这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容这是后面内容</span>
+    <p class="p-title">我是标题</p>
+    <p class="p-line-warp" v-for="item in list">
+      <span class="p-label">{{item.title}}：</span>
+      <span class="p-content">{{item.content}}</span>
     </p>
   </div>
 </template>
 <script type="text/javascript">
 import HelloWorld from '@/components/HelloWorld.vue'
+import { homeList } from '@/api/home.js'
 export default {
   props: {},
   components: {
@@ -21,7 +18,8 @@ export default {
   },
   data() {
     return {
-      username: '好用的模版'
+      username: '我是一个组件',
+      list: []
     }
   },
   filters: {},
@@ -29,6 +27,11 @@ export default {
     
   },
   mounted() {
+    homeList().then((res)=> {
+      if (res.data.code === 0) {
+        this.list = res.data.data  
+      }
+    })
   },
   methods: {
 

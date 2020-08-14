@@ -13,4 +13,9 @@ module.exports =  app => {
     const data = [{name: "test_mock", id: 'login', status: 'success'}]
     res.json({code: 0, data})
   })
+
+  app.get('/api/home_list', function (req, res) {
+    const data = [{content: "首页的内容，这里很长这里很长这里很长这里很长这里很长这里很长这里很长这里很长这里很长这里很长这里很长这里很长这里很长", id: '1', title: '首页的标题'}]
+    res.json({code: 0, data})
+  })
 }
