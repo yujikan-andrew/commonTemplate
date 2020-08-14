@@ -1,10 +1,11 @@
-import defaultSettings from '@/settings'
-
-const title = defaultSettings.title || ''
+import { title } from '@/settings'
 
 export function setPageTitle(pageTitle) {
+  console.log(pageTitle, title);
   if (pageTitle) {
     document.title = `${pageTitle} - ${title}`
+    
+  } else {
+    document.title = `${title}`
   }
-  document.title = `${title}`
 }
