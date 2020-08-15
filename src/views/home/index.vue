@@ -9,7 +9,7 @@
   </div>
 </template>
 <script type="text/javascript">
-import HelloWorld from '@/components/HelloWorld.vue'
+import HelloWorld from '@/components/hello_world.vue'
 import { homeList } from '@/api/home.js'
 export default {
   props: {},

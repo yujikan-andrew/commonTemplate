@@ -40,6 +40,21 @@ const routers = [
       },
     ],
   },
+  {
+    path: "/echart_test",
+    component: Layout,
+    children: [
+      {
+        path: "",
+        component: () => import("@/views/echart_test/index"),
+        name: "echart_test",
+        meta: { 
+          title: "echart", 
+          icon: "juese",
+        },
+      },
+    ],
+  },
   { path: "*", redirect: "/home", hidden: true },
 ]
 

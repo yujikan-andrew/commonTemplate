@@ -20,7 +20,11 @@
 
 > 项目通用组件： src/components
 
-> **规范化命名**：js "驼峰"，html "-"，css "-"，文件命名用 _ 连接，避免大小写带来的问题
+> **规范化命名**：js "驼峰"，html "-"，css "-"，文件命名用 _ 来避免大小写带来的问题
+
+> elementUI 按需加载：src/elementui 
+
+> echarts 按需加载： src/echarts
 
 
 ## Project setup

@@ -9,6 +9,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import element from './element_ui'
 Vue.use(element)
 
+import Echarts from '@/echarts'
+Vue.prototype.$echarts = Echarts
+
 Vue.config.productionTip = false
 
 new Vue({
