@@ -1,14 +1,16 @@
 <template>
   <div class="module-container" :style="{width:width}">
-    <div
+    <div v-show="option"
       :id="chartId"
       class="module-body bg"
       :style="{height:height,width:width}">
     </div>
+    <no-data v-show="!option" :height="parseInt(height.replace('px', ''))"></no-data>
   </div>
 </template>
 <script>
- 
+import noData from '../no_data/index.vue'
+import { mapGetters } from 'vuex'
 export default {
     name: 'sz-echart',
     props: {
@@ -32,7 +34,7 @@ export default {
         },
         option: { // 折线图配置
             type: Object,
-            required: true // 数据
+            default: ()=>{} // 数据
         },
         loading: { // 图形加载
           type: Boolean,
@@ -47,6 +49,12 @@ export default {
           empty: false,
         }
     },
+    computed: {
+      ...mapGetters({
+        screenWidth: 'screenWidth',
+        screenHeight: 'screenHeight',
+      })
+    },
     watch: {
       option(option) {
         if (option) {
@@ -54,8 +62,13 @@ export default {
         } else {
           this.chart.clear()
         }
-        
       },
+      screenWidth() {
+        this.resize()
+      },
+      screenHeight() {
+        this.resize()
+      }
     },
     mounted() {
       if (this.chart === null) {
@@ -68,8 +81,19 @@ export default {
           this.chart.clear()
       }
     },
+    components: {
+      noData
+    },
     methods: {
-       
+      resize() {
+        if (this.timer) {
+          clearTimeout(this.timer)
+        }
+        
+        this.timer = setTimeout(()=> {
+          this.chart.resize()
+        }, 60)
+      }
     }
 }
 </script>
