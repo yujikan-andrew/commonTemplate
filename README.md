@@ -26,6 +26,7 @@
 
 > echarts 按需加载： src/echarts
 
+> 杂项，cookie localstorage 等通用功能、方法：src/utils
 
 ## Project setup
 ```
