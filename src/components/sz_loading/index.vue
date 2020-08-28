@@ -1,8 +1,13 @@
 <template>
-  <div class="loading-warp">
-    <sz-svgicon class="svg-loading" style="width: 38px;height: 38px;" icon-class="loading"></sz-svgicon>
-    <p class="weui-toast__content">数据加载中</p>
+  <!-- 是否应该盖住头和菜单 -->
+  <div class="sz-loading">
+    <div class="mask-transparent"></div>
+    <div class="loading-warp">
+      <sz-svgicon class="svg-loading" style="width: 38px;height: 38px;" icon-class="loading"></sz-svgicon>
+      <p class="weui-toast__content">数据加载中</p>
+    </div>
   </div>
+    
 </template>
 <script type="text/javascript">
 import { mapGetters } from 'vuex'
@@ -37,7 +42,15 @@ export default {
 </script>
 <style 
   lang="less" scoped>
-  
+.sz-loading {
+  .mask-transparent {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
   .loading-warp {
     position: fixed;
     z-index: 5000;
@@ -45,23 +58,13 @@ export default {
     height: 120px;
     top: 40%;
     left: 50%;
-    -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
     text-align: center;
     border-radius: 5px;
     color: hsla(0,0%,100%,.9);
-    display: -webkit-box;
-    display: -webkit-flex;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
     flex-direction: column;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
     align-items: center;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
     justify-content: center;
     background-color: #4c4c4c;
     .svg-loading {
@@ -76,6 +79,8 @@ export default {
     }
       
   }
+}
+  
 @-webkit-keyframes weuiLoading {
   0% {
     -webkit-transform: rotate3d(0,0,1,0deg);

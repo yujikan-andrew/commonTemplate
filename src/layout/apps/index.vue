@@ -24,7 +24,7 @@ export default {
   left: @menuWidth;
   height: calc(100vh - @headHeight);
   width: calc(100vw - @menuWidth);
-  z-index: @zidxBottom;
+  z-index: @zidxFrame;  // 是否合适
   overflow-y: auto;
 }
 </style>
