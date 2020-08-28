@@ -6,11 +6,11 @@
     </div>
 
     <div class="warp-margin"></div>
-    <p class="warp-margin p-title">2. flex 实现居中，使用svg-icon</p>
+    <p class="warp-margin p-title">2. flex 实现居中，使用sz-svgicon</p>
 
     <div class="flex__container-2">
-      <svg-icon icon-class="juese"></svg-icon>
-      <svg-icon icon-class="gongzuotai"></svg-icon>
+      <sz-svgicon icon-class="juese"></sz-svgicon>
+      <sz-svgicon icon-class="gongzuotai"></sz-svgicon>
     </div>
 
     <div class="warp-margin"></div>
@@ -18,8 +18,8 @@
     <div class="flex__container-3">
       <div class="avatar">很多元素也可以居中</div>
       <div class="media__heading">
-        <svg-icon icon-class="juese"></svg-icon>
-        <svg-icon icon-class="gongzuotai"></svg-icon>
+        <sz-svgicon icon-class="juese"></sz-svgicon>
+        <sz-svgicon icon-class="gongzuotai"></sz-svgicon>
       </div>
       <div class="media__content">居中</div>
       <div class="action">很多元素也可以居中很多元素也可以居中很多元素也可以居中</div>

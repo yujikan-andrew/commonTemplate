@@ -18,7 +18,7 @@
         
     </div>
 
-    <v-loading v-if="loading" />
+    <sz-loading v-if="loading" />
   </div>
 </template>
 
