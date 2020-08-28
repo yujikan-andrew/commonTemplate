@@ -113,7 +113,7 @@ export default {
     }
     .path-names {
       margin-left: 28px;
-      color: @subColor;
+      color: @gray;
     }
     .recommend {
       border: 1px solid #ddd;
