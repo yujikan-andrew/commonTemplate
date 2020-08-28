@@ -22,10 +22,9 @@ export default {
 </script>
 <style
   lang="less" scoped>
-  @import '../../assets/common/index.less';
   .no-data {
     font-size: 14px;
     text-align: center;
-    color: @subFontColor;
+    color: @gray;
   }
 </style>

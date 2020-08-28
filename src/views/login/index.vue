@@ -17,6 +17,8 @@
       </p>
         
     </div>
+
+    <v-loading v-if="loading" />
   </div>
 </template>
 
@@ -27,7 +29,8 @@ export default {
     return {
       msg: '请求中……',
       password: '',
-      username: ''
+      username: '',
+      loading: false
     }
   },
   computed: {
@@ -41,6 +44,7 @@ export default {
   },
   methods: {
     async onclickLogin() {
+      this.loading = true
       this.$store.dispatch('login', {username: this.username, password: this.password})
     },
     async onclickLogOut() {
@@ -61,5 +65,4 @@ export default {
     }
   }
 }
-  
 </style>

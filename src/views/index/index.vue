@@ -23,7 +23,7 @@
       </div>
       <div class="media__content">居中</div>
       <div class="action">很多元素也可以居中很多元素也可以居中很多元素也可以居中</div>
-  </div>
+    </div>
   </div>
 </template>
 
