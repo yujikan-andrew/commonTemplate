@@ -9,12 +9,10 @@
   </div>
 </template>
 <script>
-import szEchart from '@/components/sz_echart'
 
 export default {
   name: 'dataInfo',
   components: {
-    szEchart,
   },
   data() {
       return {
