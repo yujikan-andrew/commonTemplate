@@ -1,6 +1,6 @@
 <template>
   <div class="loading-warp">
-    <svg-icon class="svg-loading" style="width: 38px;height: 38px;" icon-class="loading"></svg-icon>
+    <sz-svgicon class="svg-loading" style="width: 38px;height: 38px;" icon-class="loading"></sz-svgicon>
     <p class="weui-toast__content">数据加载中</p>
   </div>
 </template>

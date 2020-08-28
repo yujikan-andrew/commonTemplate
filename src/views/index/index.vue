@@ -29,10 +29,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import svgIcon from '@/components/svg_icon'
 export default {
   components: {
-    svgIcon
   },
   data() {
     return {

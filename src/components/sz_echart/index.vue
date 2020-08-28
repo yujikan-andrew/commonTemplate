@@ -5,11 +5,10 @@
       class="module-body bg"
       :style="{height:height,width:width}">
     </div>
-    <no-data v-show="!option" :height="parseInt(height.replace('px', ''))"></no-data>
+    <sz-nodata v-show="!option" :height="parseInt(height.replace('px', ''))"></sz-nodata>
   </div>
 </template>
 <script>
-import noData from '../no_data/index.vue'
 import { mapGetters } from 'vuex'
 export default {
     name: 'sz-echart',
@@ -82,7 +81,6 @@ export default {
       }
     },
     components: {
-      noData
     },
     methods: {
       resize() {
