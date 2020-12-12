@@ -13,9 +13,13 @@ const routers = [
   {
     path: "/home",
     component: Layout,
+    meta: { 
+      title: "多级title", 
+      icon: "gongzuotai",
+    },
     children: [
       {
-        path: "",
+        path: "index",
         component: () => import("@/views/home/index"),
         name: "home",
         meta: { 
@@ -23,14 +27,8 @@ const routers = [
           icon: "gongzuotai",
         },
       },
-    ],
-  },
-  {
-    path: "/index",
-    component: Layout,
-    children: [
       {
-        path: "",
+        path: "function",
         component: () => import("@/views/index/index"),
         name: "index",
         meta: { 
@@ -38,18 +36,27 @@ const routers = [
           icon: "juese",
         },
       },
-    ],
-  },
-  {
-    path: "/echart_test",
-    component: Layout,
-    children: [
       {
-        path: "",
+        path: "echart",
         component: () => import("@/views/echart_test/index"),
         name: "echart_test",
         meta: { 
           title: "echart", 
+          icon: "juese",
+        },
+      },
+    ],
+  },
+  {
+    path: "/map_test",
+    component: Layout,
+    children: [
+      {
+        path: "",
+        component: () => import("@/views/map_test/index"),
+        name: "map_test",
+        meta: { 
+          title: "map", 
           icon: "juese",
         },
       },
