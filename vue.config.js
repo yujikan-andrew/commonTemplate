@@ -146,7 +146,8 @@ module.exports = {
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'less',  // compenent must has its own style 
-      patterns: [path.resolve(__dirname, "src/assets/style/reset.less"), path.resolve(__dirname, "src/assets/style/params.less")]
+      patterns: [path.resolve(__dirname, "src/assets/style/params.less")]
+      // patterns: [path.resolve(__dirname, "src/assets/style/reset.less"), path.resolve(__dirname, "src/assets/style/params.less")]
     }
   }
 }
