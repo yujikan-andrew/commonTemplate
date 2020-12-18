@@ -62,6 +62,21 @@ const routers = [
       },
     ],
   },
+  {
+    path: "/supermap_test",
+    component: Layout,
+    children: [
+      {
+        path: "",
+        component: () => import("@/views/supermap_test/index"),
+        name: "supermap_test",
+        meta: { 
+          title: "supermap", 
+          icon: "juese",
+        },
+      },
+    ],
+  },
   { path: "*", redirect: "/home", hidden: true },
 ]
 

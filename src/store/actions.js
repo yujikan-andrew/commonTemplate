@@ -11,6 +11,8 @@ export default {
       if (res) {
         commit('LOGIN', res)
         router.push('/index')
+      } else {
+        // login error
       }
     })
   },

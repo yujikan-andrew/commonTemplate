@@ -1,16 +1,14 @@
 <template>
   <div class="map-container">
-    <sz-map></sz-map>
+    <super-map></super-map>
   </div>
 </template>
 <script type="text/javascript">
 import { mapGetters } from 'vuex'
-import szMap from '@/components/sz_map'
+import superMap from '@/components/sz_supermap'
 export default {
   props: {},
-  components: {
-    szMap
-  },
+  components: {superMap},
   data() {
     return {
       value: ''
@@ -40,6 +38,7 @@ export default {
 <style 
   lang="less" scoped>
   .map-container {
+    width: 100%;
     height: 100%;
   }
 </style>
