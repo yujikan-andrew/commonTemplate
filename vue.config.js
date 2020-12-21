@@ -81,7 +81,9 @@ module.exports = {
         include: 'initial'
       }
     ])
-
+    // fix Hot load failure
+    // config.resolve.symlinks(true);
+    
     // when there are many pages, it will cause too many meaningless requests
     config.plugins.delete('prefetch')
 
