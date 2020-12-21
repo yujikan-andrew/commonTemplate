@@ -1,3 +1,4 @@
+const {content} = require("./content")
 module.exports =  app => {
   app.get('/api/data', function (req, res) {
     const data = [{name: "test_mock", status: 'success'}]
@@ -15,7 +16,7 @@ module.exports =  app => {
   })
 
   app.get('/api/home_list', function (req, res) {
-    const data = [{content: "首页的内容，这里很长这里很长这里很长这里很长这里很长这里很长这里很长这里很长这里很长这里很长这里很长这里很长这里很长", id: '1', title: '首页的标题'}]
+    const data = [{content: content, id: '1', title: '首页的标题'}]
     res.json({code: 0, data})
   })
 }
