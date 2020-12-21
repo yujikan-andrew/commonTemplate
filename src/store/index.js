@@ -14,7 +14,7 @@ const state = {
   },
   screenHeight: document.documentElement.clientHeight || document.body.clientHeight,
   screenWidth: document.documentElement.clientWidth || document.body.clientWidth,
-  headHeight: 60
+  headHeight: 50
 }
 
 const store = new Vuex.Store({
