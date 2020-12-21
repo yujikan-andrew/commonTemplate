@@ -5,7 +5,6 @@ const app = express()
 const apiRoutes = express.Router()
 app.use('api', apiRoutes)
 
-
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
 
