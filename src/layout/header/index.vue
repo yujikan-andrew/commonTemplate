@@ -1,7 +1,9 @@
 <template>
   <div class="head-wrap pf">
-    我是头部
-    <button @click="logout">登出</button>
+    <div class="head-content ps">
+      我是头部
+      <button @click="logout">登出</button>
+    </div>
   </div>
 </template>
 <script type="text/javascript">
@@ -23,5 +25,9 @@ export default {
   background: @hoverBg;
   z-index: @zidxFrame;
   .boxshadow();
+
+  .head-content {
+    right: 20px;
+  }
 }
 </style>
