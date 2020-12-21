@@ -32,7 +32,7 @@ export default {
     var map, url = "https://iserver.supermap.io/iserver/services/map-china400/rest/maps/China";
     map = new ol.Map({
         target: 'map',
-        controls: ol.control.defaults({attributionOptions: {collapsed: false}})
+        controls: ol.control.defaults({attributionOptions: {collapsed: true}})
             .extend([new ol.supermap.control.Logo()]),
         view: new ol.View({
             center: [13391734.742430812, 4232038.46239887],
