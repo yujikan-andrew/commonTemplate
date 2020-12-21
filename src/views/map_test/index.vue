@@ -7,7 +7,7 @@
 import { mapGetters } from 'vuex'
 import szMap from '@/components/sz_map'
 export default {
-  name: "map",
+  name: "map_test",
   props: {},
   components: {
     szMap
@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-        'userInfo'
+        'user'
     ])
   },
   filters: {},
