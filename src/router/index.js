@@ -14,7 +14,7 @@ const routers = [
     path: "/home",
     component: Layout,
     meta: { 
-      title: "多级title", 
+      title: "多级menu", 
       icon: "gongzuotai",
     },
     children: [

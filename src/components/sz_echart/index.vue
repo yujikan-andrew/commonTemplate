@@ -1,5 +1,5 @@
 <template>
-  <div class="module-container" :style="{width:width}">
+  <div class="module-container" :style="{height:height,width:width}">
     <div v-show="option"
       :id="chartId"
       class="module-body bg"
