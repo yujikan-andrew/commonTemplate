@@ -89,7 +89,6 @@ export default {
         })
       });
 
-      this.doubleClickZoom(true);
       this.$emit('initMap', this.map)
 
       this.map.on("moveend", (e)=> {
@@ -108,8 +107,6 @@ export default {
       this.showVector = showVector
     },
     
-    // 添加 geoserver
-    // 添加 supermap
     
     // 添加矢量
         
