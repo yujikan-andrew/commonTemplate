@@ -35,7 +35,7 @@ export default {
         controls: ol.control.defaults({attributionOptions: {collapsed: true}})
             .extend([new ol.supermap.control.Logo()]),
         view: new ol.View({
-            center: [13391734.742430812, 4232038.46239887],
+            center: [11630660.398081223, 4280001.184277043],
             zoom: 4,
             projection: 'EPSG:3857',
             multiWorld: true
