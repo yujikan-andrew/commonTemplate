@@ -8,6 +8,9 @@ export default {
     state.userInfo = null
     removeToken()
   },
+  LOADING(state, loading) {
+    state.loading = loading
+  },
   SET_USER(state, user) {
     state.user = user
   },

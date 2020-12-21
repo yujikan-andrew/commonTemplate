@@ -21,6 +21,7 @@ router.beforeEach(async(to, from, next) => {
       next({ path: '/home' })
 
     } else {
+      store.commit('LOADING', true)
       // check privalige
       userInfo().then((res)=> {
         if (res) {
@@ -31,6 +32,7 @@ router.beforeEach(async(to, from, next) => {
           store.commit("LOGOUT")
           next(`/login`)
         }
+        store.commit('LOADING', false)
       })
       
     }
