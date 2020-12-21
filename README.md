@@ -4,7 +4,7 @@
 
 > 路由配置：src/router
 
-> 前端自测模拟数据：mock 
+> 前端自测模拟数据（发布后不可用）：mock 
 
 > 数据请求层，只负责请求数据 src/api
 
@@ -12,9 +12,9 @@
 
 > 缓存全局数据 vuex： src/store
 
-> 数据模型层，只负责处理数据（把结构化数据返回给 views）: src/models
+> 数据模型层，只负责业务逻辑复杂的数据处理（把结构化数据返回给 views）: src/models
 
-> 页面，减少业务逻辑，尽量只负责渲染: src/views
+> 页面，减少业务逻辑，尽可能尽量只负责渲染: src/views
 
 > 整体布局： src/layout
 
