@@ -82,7 +82,7 @@ export default {
           })
         ]),
         view: new ol.View({
-          center: ol.proj.fromLonLat([104.48, 39.85]),
+          center: ol.proj.fromLonLat([104.48, 35.85]),
           zoom: 4,
           minZoom: 2,
           maxZoom: 18
