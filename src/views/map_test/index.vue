@@ -7,6 +7,7 @@
 import { mapGetters } from 'vuex'
 import szMap from '@/components/sz_map'
 export default {
+  name: "map",
   props: {},
   components: {
     szMap

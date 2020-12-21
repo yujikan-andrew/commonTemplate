@@ -28,6 +28,8 @@
 
 > 杂项，cookie localstorage 等通用功能、方法：src/utils
 
+> 写组件时给组件加上名字
+
 ## Project setup
 ```
 npm install

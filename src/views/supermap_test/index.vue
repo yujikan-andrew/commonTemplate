@@ -7,6 +7,7 @@
 import { mapGetters } from 'vuex'
 import superMap from '@/components/sz_supermap'
 export default {
+  name: "supermap",
   props: {},
   components: {superMap},
   data() {
