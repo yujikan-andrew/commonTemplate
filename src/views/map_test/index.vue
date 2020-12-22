@@ -7,12 +7,10 @@
 </template>
 <script type="text/javascript">
 import { mapGetters } from 'vuex'
-import szMap from '@/components/sz_map'
 export default {
   name: "map_test",
   props: {},
   components: {
-    szMap
   },
   data() {
     return {

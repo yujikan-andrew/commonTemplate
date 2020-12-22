@@ -6,6 +6,7 @@ import { mapGetters } from 'vuex'
 import ol from 'openlayers';
 import {Logo, TileSuperMapRest} from '@supermap/iclient-openlayers';
 export default {
+  name: "szSperMap",
   props: {},
   components: {},
   data() {

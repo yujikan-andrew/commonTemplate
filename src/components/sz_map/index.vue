@@ -6,6 +6,7 @@
 <script type="text/javascript">
 import { mapGetters } from 'vuex'
 export default {
+  name: "szMap",
   props: {},
   components: {},
   data() {
