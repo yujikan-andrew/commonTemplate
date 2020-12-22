@@ -1,6 +1,5 @@
 <template>
   <div class="warp-margin warp-padding">
-    <HelloWorld :msg="username"></HelloWorld>
     <p class="p-title">我是标题</p>
     <p class="p-line-warp" v-for="item in list">
       <span class="p-label">{{item.title}}：</span>
@@ -9,16 +8,14 @@
   </div>
 </template>
 <script type="text/javascript">
-import HelloWorld from '@/components/hello_world.vue'
 import { homeList } from '@/api/home.js'
 export default {
   props: {},
   components: {
-    HelloWorld
+    
   },
   data() {
     return {
-      username: '我是一个组件',
       list: []
     }
   },
