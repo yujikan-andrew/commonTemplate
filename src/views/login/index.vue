@@ -13,11 +13,9 @@
       </p>
       <p class="p-line-warp">
         <el-button class="p-label" @click="onclickLogin">登录</el-button>
-        <el-button class="p-label" @click="onclickLogOut">登出</el-button>
       </p>
         
     </div>
-
     <sz-loading v-if="loading" />
   </div>
 </template>
@@ -30,13 +28,13 @@ export default {
       msg: '请求中……',
       password: '',
       username: '',
-      loading: false
     }
   },
   computed: {
     ...mapGetters([
       'screenWidth',
-      'screenHeight'
+      'screenHeight',
+      'loading'
     ])
   },
   mounted() {
@@ -44,7 +42,6 @@ export default {
   },
   methods: {
     async onclickLogin() {
-      this.loading = true
       this.$store.dispatch('login', {username: this.username, password: this.password})
     },
     async onclickLogOut() {
@@ -56,8 +53,16 @@ export default {
 
 <style lang="less" scoped>
 .login-warp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   .warp-margin {
-    input {
+    .p-title {
+      text-align: center;
+      .height(50px);
+    }
+    .p-content {
       display: block;
       .height(32px);
       outline: 1px solid @gray;
@@ -65,4 +70,5 @@ export default {
     }
   }
 }
+
 </style>

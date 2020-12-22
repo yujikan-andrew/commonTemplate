@@ -8,8 +8,8 @@ import { setPageTitle } from '@/utils/set_title'
 const whiteList = ['/login'] // no redirect whitelist
 
 router.beforeEach(async(to, from, next) => {
-  next()
-  return
+  // next()
+  // return
   // set page title
   setPageTitle(to.meta.title)
 
@@ -18,14 +18,14 @@ router.beforeEach(async(to, from, next) => {
 
   if (hasToken) {
     if (to.path === '/login') {
-      next({ path: '/home' })
+      next({ path: '/index' })
 
     } else {
       store.commit('LOADING', true)
       // check privalige
       userInfo().then((res)=> {
-        if (res) {
-          store.commit('SET_USER', res)
+        if (res.status === 200 && res.data.success) {
+          store.commit('SET_USER', res.data.data)
           next()
 
         } else {

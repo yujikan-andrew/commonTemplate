@@ -11,7 +11,7 @@ const routers = [
     hidden: true
   },
   {
-    path: "/home",
+    path: "",
     component: Layout,
     meta: { 
       title: "多级menu", 
@@ -19,7 +19,7 @@ const routers = [
     },
     children: [
       {
-        path: "index",
+        path: "home",
         component: () => import("@/views/home/index"),
         name: "home",
         meta: { 
@@ -28,7 +28,7 @@ const routers = [
         },
       },
       {
-        path: "function",
+        path: "index",
         component: () => import("@/views/index/index"),
         name: "index",
         meta: { 

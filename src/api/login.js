@@ -1,16 +1,16 @@
-import { getPro, postPro, getCache } from './base.js'
+import { get, post, getCache } from './base.js'
 
 export function login(data) {
   const url = "/auth/login";
-  return postPro(url, data);
+  return post(url, data);
 }
 
 export function logout(data) {
   const url = "/auth/logout";
-  return postPro(url);
+  return post(url);
 }
 
 export function userInfo() {
   const url = '/auth/info'
-  return getPro(url)
+  return get(url)
 }
