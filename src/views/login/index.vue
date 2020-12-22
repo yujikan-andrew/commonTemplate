@@ -37,12 +37,20 @@ export default {
       'loading'
     ])
   },
-  mounted() {
-
+  watch: {
+    $route: {
+      handler: function(route) {
+        const query = route.query
+        if (query) {
+          this.redirect = query.redirect
+        }
+      },
+      immediate: true
+    }
   },
   methods: {
     async onclickLogin() {
-      this.$store.dispatch('login', {username: this.username, password: this.password})
+      this.$store.dispatch('login', {username: this.username, password: this.password, redirect: this.redirect})
     },
     async onclickLogOut() {
       await this.$store.dispatch('logout')

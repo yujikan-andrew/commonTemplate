@@ -1,4 +1,4 @@
-import { get, post, getCache } from './base.js'
+import { get, post } from './base.js'
 
 export function login(data) {
   const url = "/auth/login";
