@@ -4,7 +4,7 @@ const express = require('express')
 const app = express()
 const apiRoutes = express.Router()
 app.use('api', apiRoutes)
-const CompressionPlugin = require("compression-webpack-plugin")
+
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
 
@@ -70,6 +70,7 @@ module.exports = {
 
   chainWebpack(config) {
     if (process.env.NODE_ENV === 'production') {
+      const CompressionPlugin = require("compression-webpack-plugin")
       // 压缩默认 gzip
       config.plugin('compressionPlugin').use(new CompressionPlugin({
         test: /\.js$|.\css|.\less/, // 匹配文件名
