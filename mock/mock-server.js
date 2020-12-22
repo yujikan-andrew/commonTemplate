@@ -1,4 +1,5 @@
-const {content} = require("./content")
+// 文件内容较多时，提取到单独文件中
+const { content } = require("./content")
 module.exports =  app => {
   app.get('/api/data', function (req, res) {
     const data = [{name: "test_mock", status: 'success'}]
