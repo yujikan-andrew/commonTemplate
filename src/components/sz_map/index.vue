@@ -104,13 +104,12 @@ export default {
     },
     // 底图切换
     switchBaseMap(showVector) {
-      this.showVector = showVector
+      this.tdtVecLayer.setVisible(showVector)
+      this.googleImgLayer.setVisible(!showVector)
     },
     
-    
-    // 添加矢量
-        
-    getFeature(geometry, properties) {
+    // 获取矢量要素、几何对象、图层
+    _getFeature(geometry, properties) {
       var feature = new ol.Feature({
         geometry, properties
       })
@@ -122,8 +121,8 @@ export default {
       if (transform) {
         geometry.applyTransform(ol.proj.getTransform("EPSG:4326", "EPSG:3857"))
       }
-
-      return this.getFeature(geometry, properties)
+      
+      return this._getFeature(geometry, properties)
     },
     getVectorLayer(features, style, zIndex=this.VECTOR_ZINDEX, interactive=true) {
       var source
@@ -146,50 +145,278 @@ export default {
 
       return layer
     },
-    // 点击、hover 事件
-    // const clickHandler = (event) => {
-    //   let pixel = map.getEventPixel(event.originalEvent);
-      
-    //   map.forEachFeatureAtPixel(pixel, function (feature, layer) {  // 鼠标所在位置的图层、要素
-    //     if(feature && feature.getProperties().properties) {
-    //       selectedId = feature.getProperties().properties.id
-    //       pointLayer.changed()
-    //     }
-    //   }, {
-    //     // 过滤是否为点图层
-    //     layerFilter: function layerFilter(layer) {
-    //       return layer === pointLayer;
-    //     }
-    //   })
-    // };
-    // // 鼠标滑过方法
-    // const hoverHandler = (event) => {
-    //   let pixel = map.getEventPixel(event.originalEvent);
-    //   let _feature = null
-      
-    //   map.forEachFeatureAtPixel(pixel, function (feature, layer) {
-    //     if(feature && feature.getProperties().properties) {
-    //       _feature = feature
-    //     } 
+    getClusterLayer(features, style, distance=100, zIndex=this.VECTOR_ZINDEX) {
+      var source = new ol.source.Cluster({
+        distance,
+        source: new ol.source.Vector({ features })
+      });
+
+      var clustersLayer = this.getVectorLayer(source, style, zIndex)
+
+      return clustersLayer
+    },
+
+    // find feature
+    layerGetFeatureById(layer, id) {
+      if (layer && layer.getSource()) {
+        var source = layer.getSource()
+        if (source instanceof ol.source.Cluster) {
+          source = source.getSource()
+        }
+
+        return source.getFeatureById(id)
+      }
+    },
+    layerForEachFeature(layer, eachFeatureFun) {
+      if (layer && layer.getSource()) {
+        var source = layer.getSource()
         
-    //   }, {
-    //     layerFilter: function layerFilter(layer) {
-    //       return layer === pointLayer;
-    //     }
-    //   })
-    //   if (_feature) {
-    //     map.getViewport().style.cursor = 'pointer'
-    //   } else {
-    //     map.getViewport().style.cursor = 'default'
-    //   }
-    // };
-    // // 注册事件
-    // map.on('click', clickHandler);
-    // map.on('pointermove', hoverHandler);
+        eachFeatureFun && source.forEachFeature(eachFeatureFun)
+      }
+    },
+    // 点击、hover 事件
+    
+    _getMatchedFeatures(event, layer, multiple, bubble) {
+      var pixel = this.map.getEventPixel(event.originalEvent)
+      
+      var features = []
+      var layers = []
+      var matched = []
+      var maxzIndex = -1
+      
+      this.map.forEachFeatureAtPixel(pixel, function (feature, _layer) {
+        if (_layer && _layer.get("interactive")) {  // layer exist and layer can interactive
+          
+          if (bubble) {
+            let curzIndex = _layer.getZIndex()
+            maxzIndex = curzIndex > maxzIndex ? curzIndex : maxzIndex
+            
+            matched[matched.length] = {zIndex: curzIndex, feature, _layer}
+
+          } else {
+            features.push(feature)
+            layers.push(_layer)
+            
+            if (!multiple) {
+              return true
+            }
+          }
+        }
+      }, {
+        layerFilter(_layer) {
+          return bubble || _layer === layer
+        }
+      });
+
+      if (bubble) {
+        for (var i = 0; i < matched.length; i++) {
+          if (matched[i].zIndex === maxzIndex) {
+            features.push(matched[i].feature)
+            layers.push(matched[i]._layer)
+            if (!multiple) {
+              break
+            } 
+          }
+        }
+        maxzIndex = -1
+        matched = []
+      }
+
+      return {features, layers}
+    },
+    layerOnClick(layer, callback, multiple, bubble) {
+      this._removeClickEvent(layer)
+      var clickHandler = (event)=> {
+        var result = this._getMatchedFeatures(event, layer, multiple, bubble)
+        callback && callback(result.features, event, result.layers)
+      }
+
+      layer.set("clickHandler", clickHandler)
+      this.map.on('click', clickHandler)
+
+      return clickHandler
+    },
+    layerUnClick(clickHandler) {
+      this.map.un('click', clickHandler)
+      clickHandler = null
+    },
+    layerOnHover(layer, callback, multiple, bubble) {
+      this._removeHoverEvent(layer)
+      var hoverHandler = (event)=> {
+
+        if (event.dragging) {
+          return
+
+        } else {
+          var result = this._getMatchedFeatures(event, layer, multiple, bubble)
+          callback && callback(result.features, event, result.layers)
+        }
+      }
+
+      layer.set("hoverHandler", hoverHandler)
+      this.map.on('pointermove', hoverHandler)
+
+      return hoverHandler
+    },
+    layerUnHover(hoverHandler) {
+      this.map.un('pointermove', hoverHandler)
+      hoverHandler = null
+    },
+    _removeClickEvent(layer) {
+      var clickEvt = layer.get("clickHandler")
+      
+      if (clickEvt && typeof clickEvt === "function") {
+        this.map.un("click", layer.get("clickHandler"))
+        layer.set("clickHandler", null)
+      }
+    },
+    _removeHoverEvent(layer) {
+      var hoverEvt = layer.get("hoverHandler")
+      
+      if (hoverEvt && typeof hoverEvt === "function") {
+        this.map.un("pointermove", layer.get("hoverHandler"))
+        layer.set("hoverHandler", null)
+      }
+    },
     // 坐标系转化
     // 定位到
     // 添加 overlay
-    // 
+    // 常用方法
+    addLayer(layer) {
+      this.map.addLayer(layer)
+    },
+    renderSync() {
+      this.map.renderSync()
+    },
+    updateSize() {
+      this.map.updateSize()
+    },
+    fit(extent) {
+      this.getView().fit(extent)
+    },
+    getView() {
+      return this.map.getView()
+    },
+    getSize() {
+      return this.map.getSize()
+    },
+    toLonLat(coordinate) {
+      return ol.proj.toLonLat(coordinate)
+    },
+    transform(coordinate) {
+      return ol.proj.transform(coordinate, 'EPSG:4326', 'EPSG:3857')
+    },
+    extransform(coordinate) {
+      return ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326')
+    },
+    applyTransform(extent) {
+      var result = ol.extent.applyTransform(extent, ol.proj.getTransform("EPSG:4326", "EPSG:3857"));
+      return result
+    },
+    applyExtransform(extent) {
+      var result = ol.extent.applyTransform(extent, ol.proj.getTransform("EPSG:3857", "EPSG:4326"));
+      return result
+    },
+    calculateExtent() {
+      var size = this.getSize(),
+        extent = this.getView().calculateExtent(size);
+
+      return extent
+    },
+    getGeomExtent(geometry) {
+      var extent = []
+      if (geometry) {
+        extent = geometry.getExtent()
+      }
+
+      return extent
+    },
+    pointInGeom(geometry, coordinate, transform) {
+      var intersect = false
+      coordinate = transform ? this.transform(coordinate) : coordinate
+
+      if (geometry) {
+        intersect = geometry.intersectsCoordinate(coordinate)
+      }
+
+      return intersect
+    },
+
+    addOverlay(coordinate, element, overlay=null, insertFirst=true) {
+      if (!overlay) {
+        overlay = new ol.Overlay({
+          element,
+          insertFirst
+        });
+        this.map.addOverlay(overlay);
+      }
+      
+      overlay.setPosition(coordinate)
+      this.map.renderSync()
+      return overlay
+    },
+
+    // clip methods 裁剪
+    getClipFeature(geom) {
+      var gsForamt = new ol.format.GeoJSON();
+      var features = [{'type': 'Feature', 'geometry': geom}];
+
+      var geojsonObject = {
+        'type': 'FeatureCollection',
+        'crs': {
+            'type': 'name',
+            'properties': {
+                'name': 'EPSG:3857'
+            }
+        },
+        'features': features
+      };
+
+      var fs = gsForamt.readFeatures(geojsonObject);
+      return fs;
+    },
+    getClipStyle() {
+      var style = new ol.style.Style({
+          stroke: new ol.style.Stroke({
+              color: 'rgba(255, 0, 0, 0)',
+              width: 1
+          }),
+          fill: new ol.style.Fill({
+              color: 'rgba(255, 0, 0, 0)'
+          })
+      })
+      return style;
+    },
+    clipLayer(curlayer, features, style) {
+      style = style ? style : this.getClipStyle()
+
+      curlayer.on('precompose', (event)=> {
+          var ctx = event.context;
+          var vecCtx = event.vectorContext;
+          ctx.save();
+          var len = features.length;
+          for (var i = 0; i < len; i++) {
+              vecCtx.drawFeature(features[i], style);
+          }
+          ctx.clip();
+      });
+      curlayer.on('postcompose', function(event) {
+          var ctx = event.context;
+          ctx.restore();
+      });
+    },
+    // extent 是否相交
+    intersects(extent1, extent2) {
+      var result = ol.extent.intersects(extent1, extent2)
+      return result
+    },
+    // 定位到坐标
+    animateToCoor(coordinates, zoomLevel=10, transform) {
+      if (transform) {
+        coordinates = ol.proj.transform(coordinates, 'EPSG:4326', 'EPSG:3857')
+      }
+      this.map.getView().animate({zoom: zoomLevel, center: coordinates, duration: 550, easing:  (t)=> Math.pow(t, 1.5)});
+    },
   }
 }
 </script>
