@@ -4,7 +4,7 @@ const express = require('express')
 const app = express()
 const apiRoutes = express.Router()
 app.use('api', apiRoutes)
-
+const CompressionPlugin = require("compression-webpack-plugin")
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
 
@@ -69,6 +69,14 @@ module.exports = {
   },
 
   chainWebpack(config) {
+    if (process.env.NODE_ENV === 'production') {
+      // 压缩默认 gzip
+      config.plugin('compressionPlugin').use(new CompressionPlugin({
+        test: /\.js$|.\css|.\less/, // 匹配文件名
+        threshold: 10240, // 对超过10k的数据压缩
+        deleteOriginalAssets: true // 不删除源文件
+      }))
+    }
     // it can improve the speed of the first screen, it is recommended to turn on preload
     // it can improve the speed of the first screen, it is recommended to turn on preload
     config.plugin('preload').tap(() => [
