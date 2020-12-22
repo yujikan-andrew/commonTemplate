@@ -3,13 +3,16 @@ import store from './store'
 import { getToken } from '@/utils/cookie' // get token from cookie
 import { userInfo } from '@/api/login.js'
 import { setPageTitle } from '@/utils/set_title'
-
+import NProgress from 'nprogress' // progress bar
+import 'nprogress/nprogress.css'
+NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login'] // no redirect whitelist
 
 router.beforeEach(async(to, from, next) => {
   // next()
   // return
+  NProgress.start()
   // set page title
   setPageTitle(to.meta.title)
 
@@ -19,9 +22,9 @@ router.beforeEach(async(to, from, next) => {
   if (hasToken) {
     if (to.path === '/login') {
       next({ path: '/index' })
+      NProgress.done()
 
     } else {
-      store.commit('LOADING', true)
       // check privalige
       userInfo().then((res)=> {
         if (res.status === 200 && res.data.success) {
@@ -32,9 +35,8 @@ router.beforeEach(async(to, from, next) => {
           store.commit("LOGOUT")
           next(`/login`)
         }
-        store.commit('LOADING', false)
+        NProgress.done()
       })
-      
     }
   } else {  // no token
 
@@ -44,6 +46,7 @@ router.beforeEach(async(to, from, next) => {
       store.commit("LOGOUT")
       next(`/login?redirect=${to.path}`)
     }
+    NProgress.done()
   }
 })
 
