@@ -12,10 +12,11 @@
   "dependencies": {
     "@supermap/iclient-openlayers": "^10.0.0",
     "axios": "^0.19.2",
+    "compression": "^1.7.4",
     "js-cookie": "^2.2.1",
+    "nprogress": "^0.2.0",
     "vue": "^2.6.11",
     "vue-router": "^3.3.4",
-    "nprogress": "^0.2.0",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
