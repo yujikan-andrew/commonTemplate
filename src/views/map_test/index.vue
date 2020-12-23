@@ -2,7 +2,7 @@
   <div class="map-container pr">
     <sz-map ref="map"></sz-map>
 
-    <div id="overlayEl" class="ps warp-padding">overlay text</div>
+    <div id="overlayEl" v-show="overlay" class="ps warp-padding">overlay text</div>
   </div>
 </template>
 <script type="text/javascript">
@@ -14,7 +14,7 @@ export default {
   },
   data() {
     return {
-      value: ''
+      overlay: null
     }
   },
   computed: {
