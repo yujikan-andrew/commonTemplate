@@ -1,8 +1,8 @@
 <template>
-  <div class="map-container">
+  <div class="map-container pr">
     <sz-map ref="map"></sz-map>
 
-    <div id="overlayEl" class="ps">overlay text</div>
+    <div id="overlayEl" class="ps warp-padding">overlay text</div>
   </div>
 </template>
 <script type="text/javascript">
@@ -139,5 +139,12 @@ export default {
   lang="less" scoped>
   .map-container {
     height: 100%;
+  }
+  #overlayEl {
+    top: 10px;
+    left: 20px;
+    width: 100px;
+    background: #fff;
+    .borderRadius();
   }
 </style>
