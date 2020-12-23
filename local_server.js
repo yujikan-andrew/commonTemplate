@@ -3,6 +3,7 @@ var fs = require('fs')
 var express = require('express')
 var proxyMiddleware = require('http-proxy-middleware')
 var opn = require('opn')
+var compression = require('compression')
 
 // default port where dev server listens for incoming traffic
 var port = '8130'
@@ -10,7 +11,7 @@ var port = '8130'
 // https://github.com/chimurai/http-proxy-middleware
 
 var app = express()
-
+app.use(compression());
 
 // proxy api requests
 
@@ -18,8 +19,8 @@ var app = express()
 // app.use(require('connect-history-api-fallback')())
 
 // serve pure static assets
-var staticPath = '../dist/static'
-app.use('/static', express.static('../dist/static'))
+var staticPath = './dist/static'
+app.use('/static', express.static('./dist/static'))
 
 // 路由
 app.get('/:viewname?', function(req, res, next) {
@@ -28,7 +29,7 @@ app.get('/:viewname?', function(req, res, next) {
         ? req.params.viewname + '.html'
         : 'index.html';
 
-    var filepath = path.join('../dist', viewname);
+    var filepath = path.join('./dist', viewname);
 
     // 使用webpack提供的outputFileSystem
     fs.readFile(filepath, function(err, result) {
