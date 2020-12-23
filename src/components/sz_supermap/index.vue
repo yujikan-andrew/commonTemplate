@@ -3,8 +3,7 @@
 </template>
 <script type="text/javascript">
 import { mapGetters } from 'vuex'
-import ol from 'openlayers';
-import {Logo, TileSuperMapRest} from '@supermap/iclient-openlayers';
+import TileSuperMapRest from './tile_supermap_rest.js';
 
 export default {
   name: "szSperMap",
@@ -34,8 +33,7 @@ export default {
     var map, url = "https://iserver.supermap.io/iserver/services/map-china400/rest/maps/China";
     map = new ol.Map({
         target: 'map',
-        controls: ol.control.defaults({attributionOptions: {collapsed: true}})
-            .extend([new ol.supermap.control.Logo()]),
+        controls: ol.control.defaults({attributionOptions: {collapsed: true}}),
         view: new ol.View({
             center: [11630660.398081223, 4280001.184277043],
             zoom: 4,
@@ -44,7 +42,7 @@ export default {
         })
     });
     var layer = new ol.layer.Tile({
-        source: new ol.source.TileSuperMapRest({
+        source: new TileSuperMapRest({
             url: url,
             wrapX: true
         }),
