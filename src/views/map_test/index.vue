@@ -46,18 +46,25 @@ export default {
       var fe = this.$refs.map.getVectorFeature(geom, {id: 1, name: "多个点属性一致"}, transform)
       console.log('getGeomExtent', this.$refs.map.getGeomExtent(fe.getGeometry()))
       fe.setId(1)
-      var style = new ol.style.Style({
-        image: new ol.style.Circle({
-          fill: new ol.style.Fill({
-           color: 'rgba(255,255,255,0.4)'
+      // var style = new ol.style.Style({
+      //   image: new ol.style.Circle({
+      //     fill: new ol.style.Fill({
+      //      color: 'rgba(255,255,255,0.4)'
+      //     }),
+      //     stroke: new ol.style.Stroke({
+      //      color: '#3399CC',
+      //      width: 1.25
+      //     }),
+      //     radius: 5
+      //   }),
+      // })
+      var style =  new ol.style.Style({
+          image: new ol.style.Icon({
+            src: require('@/assets/logo.png'),
+            scale: 0.1
           }),
-          stroke: new ol.style.Stroke({
-           color: '#3399CC',
-           width: 1.25
-          }),
-          radius: 5
-        }),
-      })
+          zIndex: 13
+        })
       var la = this.$refs.map.getVectorLayer([fe], style, 100)
       this.$refs.map.addLayer(la)
 

@@ -18,9 +18,8 @@
     </style>
     <script type="text/javascript">
       document.onreadystatechange = completeLoading;
-
       function completeLoading() {
-        if (document.readyState === "complete") {
+        if (document.readyState === "interactive") {
           var loadingMask = document.getElementById('loadingDiv');
           loadingMask.parentNode.removeChild(loadingMask);
         }
