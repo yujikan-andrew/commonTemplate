@@ -12,6 +12,9 @@ export default {
   data() {
     return {
       showVector: true,
+      BASE_ZINDEX: 1,
+      CVA_ZINDEX: 2,
+      DEFAUL_ZINDEX: 5,
       VECTOR_ZINDEX: 10,
     }
   },
@@ -279,12 +282,22 @@ export default {
         layer.set("hoverHandler", null)
       }
     },
-    // 坐标系转化
-    // 定位到
-    // 添加 overlay
-    // 常用方法
+    // 坐标系转化、定位到、添加 overlay等常用方法
     addLayer(layer) {
       this.map.addLayer(layer)
+      return layer
+    },
+    removeLayer(layer) {
+      this.map.removeLayer(layer)
+      return layer
+    },
+    removeLayers(layers) {
+      if (typeof layers === "array" && layers.length > 0) {
+        for (var i = 0; i < layers.length; i++) {
+          this.map.removeLayer(layers[i])
+        }
+        return []
+      }
     },
     renderSync() {
       this.map.renderSync()
@@ -303,6 +316,9 @@ export default {
     },
     toLonLat(coordinate) {
       return ol.proj.toLonLat(coordinate)
+    },
+    getCoordinateFromPixel(pixel) {
+      return this.map.getCoordinateFromPixel(pixel)
     },
     transform(coordinate) {
       return ol.proj.transform(coordinate, 'EPSG:4326', 'EPSG:3857')
@@ -357,7 +373,7 @@ export default {
       return overlay
     },
 
-    // clip methods 裁剪
+    // clip methods 前端裁剪
     getClipFeature(geom) {
       var gsForamt = new ol.format.GeoJSON();
       var features = [{'type': 'Feature', 'geometry': geom}];
@@ -417,6 +433,53 @@ export default {
         coordinates = ol.proj.transform(coordinates, 'EPSG:4326', 'EPSG:3857')
       }
       this.map.getView().animate({zoom: zoomLevel, center: coordinates, duration: 550, easing:  (t)=> Math.pow(t, 1.5)});
+    },
+    /* 
+      @options: {
+        serverUrl: 'http://xxx.com',
+        layerName: 'layer name',
+        extent: [1, 2, 3, 4],
+        visible: true,
+        opacity: 1,
+        zIndex: 3,
+        styles: 'sld name',
+        sld: '<sld></sld>',
+        env: 'c122:#ff0000;c128:#00ff00;c134:#0000ff;o134:1;o122:1;o128:1'
+      }
+     */
+    getTileLayer(options) {
+
+      if (!options.serverUrl) {
+        console.error("Please set 'serverUrl'")
+        return null
+      }
+      
+      var layer = new ol.layer.Tile({
+        visible: options.visible !== undefined ? options.visible : true,
+        extent: options.extent,
+        opacity: options.opacity !== undefined ? options.opacity : 1,
+        source: new ol.source.TileWMS({
+          url: options.serverUrl,
+          params: {
+            LAYERS: options.layerName,
+            tiled: true,
+            FORMAT: "image/png",
+            VERSION: '1.1.1',
+          }
+        }),
+        zIndex: options.zIndex !== undefined ? options.zIndex : this.DEFAUL_ZINDEX
+      })
+
+      this.updateParams(layer, "STYLES", options.styles)
+      this.updateParams(layer, "ENV", options.env)
+      this.updateParams(layer, "SLD_BODY", options.sld)
+
+      return layer
+    },
+    updateParams(layer, key, value) {
+      if (value) {
+        layer.getSource().updateParams({[key]: value});
+      }
     },
   }
 }
