@@ -35,6 +35,8 @@ export default {
   },
   mounted() {
     this.init()
+    // var layer = this.getTileLayer({serverUrl: 'https://iserver.supermap.io/iserver/services/map-china400/wms111/China', layerName: 'China', extent: this.calculateExtent()})
+    // this.addLayer(layer)
   },
   methods: {
     // 初始化
@@ -436,7 +438,7 @@ export default {
     },
     /* 
       @options: {
-        serverUrl: 'http://xxx.com',
+        serverUrl: 'https://iserver.supermap.io/iserver/services/map-china400/wms111/China',
         layerName: 'layer name',
         extent: [1, 2, 3, 4],
         visible: true,
@@ -456,7 +458,7 @@ export default {
       
       var layer = new ol.layer.Tile({
         visible: options.visible !== undefined ? options.visible : true,
-        extent: options.extent,
+        // extent: options.extent || this.calculateExtent(),
         opacity: options.opacity !== undefined ? options.opacity : 1,
         source: new ol.source.TileWMS({
           url: options.serverUrl,
@@ -473,6 +475,9 @@ export default {
       this.updateParams(layer, "STYLES", options.styles)
       this.updateParams(layer, "ENV", options.env)
       this.updateParams(layer, "SLD_BODY", options.sld)
+      if (options.extent) {
+        layer.setExtent(options.extent)
+      }
 
       return layer
     },
