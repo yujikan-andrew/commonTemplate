@@ -4,7 +4,6 @@
   </div>
 </template>
 <script type="text/javascript">
-import { mapGetters } from 'vuex'
 export default {
   name: "szMap",
   props: {},
@@ -18,12 +17,6 @@ export default {
       VECTOR_ZINDEX: 10,
     }
   },
-  computed: {
-    ...mapGetters([
-        'userInfo'
-    ])
-  },
-  filters: {},
   watch: {
     value: {
       immediate: true,
@@ -181,60 +174,16 @@ export default {
       }
     },
     // 点击、hover 事件
-    
-    _getMatchedFeatures(event, layer, multiple, bubble) {
-      var pixel = this.map.getEventPixel(event.originalEvent)
-      
-      var features = []
-      var layers = []
-      var matched = []
-      var maxzIndex = -1
-      
-      this.map.forEachFeatureAtPixel(pixel, function (feature, _layer) {
-        if (_layer && _layer.get("interactive")) {  // layer exist and layer can interactive
-          
-          if (bubble) {
-            let curzIndex = _layer.getZIndex()
-            maxzIndex = curzIndex > maxzIndex ? curzIndex : maxzIndex
-            
-            matched[matched.length] = {zIndex: curzIndex, feature, _layer}
-
-          } else {
-            features.push(feature)
-            layers.push(_layer)
-            
-            if (!multiple) {
-              return true
-            }
-          }
-        }
-      }, {
-        layerFilter(_layer) {
-          return bubble || _layer === layer
-        }
-      });
-
-      if (bubble) {
-        for (var i = 0; i < matched.length; i++) {
-          if (matched[i].zIndex === maxzIndex) {
-            features.push(matched[i].feature)
-            layers.push(matched[i]._layer)
-            if (!multiple) {
-              break
-            } 
-          }
-        }
-        maxzIndex = -1
-        matched = []
-      }
-
-      return {features, layers}
-    },
-    layerOnClick(layer, callback, multiple, bubble) {
-      this._removeClickEvent(layer)
+    layerOnClick(layer, callback) {
+      this.removeClickEvent(layer)
       var clickHandler = (event)=> {
-        var result = this._getMatchedFeatures(event, layer, multiple, bubble)
-        callback && callback(result.features, event, result.layers)
+        let pixel = this.map.getEventPixel(event.originalEvent);
+        var features = this.map.getFeaturesAtPixel(pixel, {
+          layerFilter: function layerFilter(_layer) {
+            return _layer === layer;
+          }
+        })
+        callback && callback(features, event)
       }
 
       layer.set("clickHandler", clickHandler)
@@ -247,15 +196,20 @@ export default {
       clickHandler = null
     },
     layerOnHover(layer, callback, multiple, bubble) {
-      this._removeHoverEvent(layer)
+      this.removeHoverEvent(layer)
       var hoverHandler = (event)=> {
 
         if (event.dragging) {
           return
 
         } else {
-          var result = this._getMatchedFeatures(event, layer, multiple, bubble)
-          callback && callback(result.features, event, result.layers)
+          let pixel = this.map.getEventPixel(event.originalEvent);
+          var features = this.map.getFeaturesAtPixel(pixel, {
+            layerFilter: function layerFilter(_layer) {
+              return _layer === layer;
+            }
+          })
+          callback && callback(features, event)
         }
       }
 
@@ -268,19 +222,19 @@ export default {
       this.map.un('pointermove', hoverHandler)
       hoverHandler = null
     },
-    _removeClickEvent(layer) {
+    removeClickEvent(layer) {
       var clickEvt = layer.get("clickHandler")
       
       if (clickEvt && typeof clickEvt === "function") {
-        this.map.un("click", layer.get("clickHandler"))
+        this.map.un("click", clickEvt)
         layer.set("clickHandler", null)
       }
     },
-    _removeHoverEvent(layer) {
+    removeHoverEvent(layer) {
       var hoverEvt = layer.get("hoverHandler")
       
       if (hoverEvt && typeof hoverEvt === "function") {
-        this.map.un("pointermove", layer.get("hoverHandler"))
+        this.map.un("pointermove", hoverEvt)
         layer.set("hoverHandler", null)
       }
     },
@@ -321,6 +275,9 @@ export default {
     },
     getCoordinateFromPixel(pixel) {
       return this.map.getCoordinateFromPixel(pixel)
+    },
+    getPixelFromCoordinate(coordinate) {
+      return this.map.getPixelFromCoordinate(coordinate)
     },
     transform(coordinate) {
       return ol.proj.transform(coordinate, 'EPSG:4326', 'EPSG:3857')
@@ -374,7 +331,47 @@ export default {
       this.map.renderSync()
       return overlay
     },
+    /*
+      获取overlay 的 top, left 
+      @overlayElement: dom 元素
+      @pixel: array 点击位置的像素值
+      @offsetY: number 竖直方向偏移
+      @offsetX: number 水平方向偏移
+      @marginLeft: number(左侧菜单的宽度)
+     */
+    getOverlayPosition(overlayElement, coordinate, offsetY = 10, offsetX = 5, marginLeft=180) {
+      var top, left
+      var height = overlayElement.clientHeight
+      var width = overlayElement.clientWidth
+      var pixel = this.getPixelFromCoordinate(coordinate)
 
+      var topHeight = pixel[1] - height
+      var leftWidth = pixel[0] -  width
+      var bottomHeight = document.body.clientHeight - pixel[1] - height
+      var rightWidth = document.body.clientWidth - marginLeft -  width
+      
+      if (topHeight >= 0 && leftWidth >= 0) {  // topLeft
+        top = overlayElement.clientHeight + offsetY
+        left = overlayElement.clientWidth + offsetX
+
+      } else if (leftWidth >= 0 && bottomHeight >= 0) {  // leftBottom
+        top = -offsetY
+        left = overlayElement.clientWidth + offsetX
+
+      } else if (rightWidth >= 0 && topHeight >= 0) {  // topRight
+        top = overlayElement.clientHeight + offsetY
+        left = -offsetX
+        
+      } else if (bottomHeight >= 0 && rightWidth >= 0) {  // rightBottom
+        top = -offsetY
+        left = -offsetX
+        
+      } else {  // topLeft
+        top = overlayElement.clientHeight + offsetY
+        left = overlayElement.clientWidth + offsetX
+      }
+      return {left: -left, top: -top}
+    },
     // clip methods 前端裁剪
     getClipFeature(geom) {
       var gsForamt = new ol.format.GeoJSON();
@@ -430,11 +427,17 @@ export default {
       return result
     },
     // 定位到坐标
-    animateToCoor(coordinates, zoomLevel=10, transform) {
+    animateToPoint(coordinates, zoomLevel=5, duration, transform) {
       if (transform) {
         coordinates = ol.proj.transform(coordinates, 'EPSG:4326', 'EPSG:3857')
       }
-      this.map.getView().animate({zoom: zoomLevel, center: coordinates, duration: 550, easing:  (t)=> Math.pow(t, 1.5)});
+      this.map.getView().animate({zoom: zoomLevel, center: coordinates, duration, easing: ol.easing.inAndOut});
+    },
+    animateToExtent(extent, duration, transform) {
+      if (transform) {
+        extent = this.applyTransform(extent)
+      }
+      this.map.getView().fit(extent, {duration, easing:  ol.easing.inAndOut})
     },
     /* 
       @options: {
