@@ -2,7 +2,8 @@
   <div class="map-container pr">
     <sz-map ref="map"></sz-map>
 
-    <div id="overlayEl" v-show="overlay" class="ps warp-padding">overlay text</div>
+    <div id="overlayEl" class="ps warp-padding"
+      :style="{top: overlayPosition[0] + 'px', left: overlayPosition[1] + 'px'}">overlay text</div>
   </div>
 </template>
 <script type="text/javascript">
@@ -14,7 +15,8 @@ export default {
   },
   data() {
     return {
-      overlay: null
+      overlay: null,
+      overlayPosition: [-1000, -1000]
     }
   },
   computed: {
@@ -43,9 +45,9 @@ export default {
     renderPoint() {
       var geom = {type: "MultiPoint", coordinates: [[120.3, 35.5], [121.3, 32.5]]}
       var transform = true
-      var fe = this.$refs.map.getVectorFeature(geom, {id: 1, name: "多个点属性一致"}, transform)
-      console.log('getGeomExtent', this.$refs.map.getGeomExtent(fe.getGeometry()))
-      fe.setId(1)
+      var feature = this.$refs.map.getVectorFeature(geom, {id: 1, name: "多个点属性一致"}, transform)
+      console.log('getGeomExtent', this.$refs.map.getGeomExtent(feature.getGeometry()))
+      feature.setId(1)
       // var style = new ol.style.Style({
       //   image: new ol.style.Circle({
       //     fill: new ol.style.Fill({
@@ -65,14 +67,14 @@ export default {
           }),
           zIndex: 13
         })
-      var la = this.$refs.map.getVectorLayer([fe], style, 100)
-      this.$refs.map.addLayer(la)
+      var layer = this.$refs.map.getVectorLayer([feature], style, 100)
+      this.$refs.map.addLayer(layer)
 
-      // 需要先  fe.setId(1)
-      var _fe = this.$refs.map.layerGetFeatureById(la, 1)
-      console.log("layerGetFeatureById", _fe)
+      // 需要先  feature.setId(1)
+      var _feature = this.$refs.map.layerGetFeatureById(layer, 1)
+      console.log("layerGetFeatureById", _feature)
 
-      this.$refs.map.layerForEachFeature(la, (feature)=> {
+      this.$refs.map.layerForEachFeature(layer, (feature)=> {
         console.log("layerForEachFeature", feature)
       })
     },
@@ -129,6 +131,8 @@ export default {
     addOverlay(feature, event) {
       var coordinates = feature.getGeometry().getCoordinates()
       var element = document.getElementById("overlayEl")
+      var position = this.$refs.map.getOverlayPosition(element, coordinates, 10, 10, 180)
+      this.overlayPosition = [position.top, position.left]
 
       this.overlay = this.$refs.map.addOverlay(coordinates, element, this.overlay)
     }
