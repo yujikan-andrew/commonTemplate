@@ -30,6 +30,8 @@
 
 > 杂项，cookie localstorage 等通用功能、方法：src/utils
 
+> 图标支持 svg，可把svg放在 src/icons/svg 使用方式： `<sz-svgicon icon-class="juese"></sz-svgicon>`，juese 就是svg 文件名称 
+
 > 写组件时给组件加上名字
 
 ## Project setup
